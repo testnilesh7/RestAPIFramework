@@ -1,0 +1,9 @@
+allure-results/
+target/
+test-output/
+.mvn/
+.idea/
+.settings/
+.project/
+.classpath/
+

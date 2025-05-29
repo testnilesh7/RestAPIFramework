@@ -13,7 +13,7 @@ pipeline
             steps
             {
                  git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                 bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
             post 
             {
@@ -38,7 +38,7 @@ pipeline
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    sh "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/testng_regression.xml"
+                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml"
                     
                 }
             }
@@ -82,7 +82,7 @@ pipeline
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    sh "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/testng_regression.xml"
+                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml"
                     
                 }
             }

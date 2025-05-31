@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.qa.api.client.RestClient;
+import com.qa.api.manager.ConfigManager;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
@@ -14,14 +15,18 @@ public class BaseTest {
 	protected RestClient restClient;
 	
 	// ********* API BASE URLS********//
-	protected final static String BASE_URL_GOREST ="https://gorest.co.in";
-	protected final static String BASE_URL_CONTACTS ="https://thinking-tester-contact-list.herokuapp.com";
-	protected final static String BASE_URL_REQRES ="https://reqres.in";
-	protected final static String BASE_URL_BASIC_AUTH ="https://the-internet.herokuapp.com";
-	protected final static String BASE_URL_BOOKING ="https://restful-booker.herokuapp.com";
-	protected final static String BASE_URL_PRODUCTS ="https://fakestoreapi.com";
-	protected final static String BASE_URL_OAUTH2_AMADEUS ="https://test.api.amadeus.com";
-	protected final static String BASE_URL_EARGAST_AMADEUS ="https://eargast.com";
+	// protected final static String BASE_URL_GOREST ="https://gorest.co.in";
+		protected static String BASE_URL_GOREST;
+		protected static String BASE_URL_REQRES;
+		protected static String BASE_URL_CONTACTS;
+		protected  static String BASE_URL_BASIC_AUTH;
+		protected static String BASE_URL_BOOKING;
+		protected static String BASE_URL_PRODUCTS;
+		protected static String BASE_URL_OAUTH2_AMADEUS;
+		protected static String BASE_URL_EARGAST_AMADEUS;
+
+	
+	
 
 	
 		
@@ -39,8 +44,21 @@ public class BaseTest {
 	protected final static String ERGAST_ENDPOINT ="/api/f1/2017/circuits.xml";
 
 	@BeforeSuite
-	public void setupAllureReport() {
+	public void initSetup() {
+		
 		RestAssured.filters(new AllureRestAssured());
+		
+		BASE_URL_GOREST = ConfigManager.get("baseurl.gorest").trim();
+		BASE_URL_REQRES = ConfigManager.get("baseurl.reqres").trim();
+		BASE_URL_CONTACTS = ConfigManager.get("baseurl.contacts").trim();
+		BASE_URL_BASIC_AUTH = ConfigManager.get("baseurl.basicAuth").trim();
+		BASE_URL_BOOKING = ConfigManager.get("baseurl.booking").trim();
+		BASE_URL_PRODUCTS = ConfigManager.get("baseurl.products").trim();
+		BASE_URL_OAUTH2_AMADEUS = ConfigManager.get("baseurl.amadeus").trim();
+		BASE_URL_EARGAST_AMADEUS = ConfigManager.get("baseurl.eargast").trim();
+		
+		
+		
 	}
 	
 	@BeforeTest

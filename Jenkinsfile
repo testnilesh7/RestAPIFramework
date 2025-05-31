@@ -43,35 +43,7 @@ pipeline
             }
         }
         
-        
-        stage('Publish Allure Reports - Post Dev') {
-           steps {
-                script {
-                    allure([
-                        includeProperties: false,
-                        jdk: '',
-                        properties: [],
-                        reportBuildPolicy: 'ALWAYS',
-                        results: [[path: '/allure-results']]
-                    ])
-                }
-            }
-        }
-        
-        
-        stage('Publish ChainTest Report - Post Dev'){
-            steps{
-                     publishHTML([allowMissing: false,
-                                  alwaysLinkToLastBuild: false, 
-                                  keepAll: true, 
-                                  reportDir: 'target/chaintest', 
-                                  reportFiles: 'Index.html', 
-                                  reportName: 'HTML API Regression ChainTest Report - Dev', 
-                                  reportTitles: ''])
-            }
-        }
-        
-        
+  
         stage("Deploy to QA"){
             steps{
                 echo("deploy to qa done")
@@ -89,36 +61,7 @@ pipeline
             }
         }
         
-        
-        stage('Publish Allure Reports - Post QA') {
-           steps {
-                script {
-                    allure([
-                        includeProperties: false,
-                        jdk: '',
-                        properties: [],
-                        reportBuildPolicy: 'ALWAYS',
-                        results: [[path: '/allure-results']]
-                    ])
-                }
-            }
-        }
-        
-        
-        stage('Publish ChainTest Report - Post QA'){
-            steps{
-                     publishHTML([allowMissing: false,
-                                  alwaysLinkToLastBuild: false, 
-                                  keepAll: true, 
-                                  reportDir: 'target/chaintest', 
-                                  reportFiles: 'Index.html', 
-                                  reportName: 'HTML API Regression ChainTest Report - QA', 
-                                  reportTitles: ''])
-            }
-        }
-                
-     
-                
+             
         stage("Deploy to Stage"){
             steps{
                 echo("deploy to Stage")
@@ -177,33 +120,6 @@ pipeline
                     bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod"
                     
                 }
-            }
-        }
-        
-        stage('Publish Allure Reports - Post Prod') {
-           steps {
-                script {
-                    allure([
-                        includeProperties: false,
-                        jdk: '',
-                        properties: [],
-                        reportBuildPolicy: 'ALWAYS',
-                        results: [[path: '/allure-results']]
-                    ])
-                }
-            }
-        }
-        
-        
-        stage('Publish ChainTest Report - Post Prod'){
-            steps{
-                     publishHTML([allowMissing: false,
-                                  alwaysLinkToLastBuild: false, 
-                                  keepAll: true, 
-                                  reportDir: 'target/chaintest', 
-                                  reportFiles: 'Index.html', 
-                                  reportName: 'HTML API Regression ChainTest Report', 
-                                  reportTitles: ''])
             }
         }
 

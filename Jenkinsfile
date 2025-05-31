@@ -26,7 +26,7 @@ pipeline
         }
         
         
-        stage("Deploy to Dev"){
+        stage("Deploy to DEV"){
             steps{
                 echo("deploy to DEV done")
             }
@@ -37,7 +37,7 @@ pipeline
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=dev"
+                    bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=dev"
                     
                 }
             }
@@ -55,7 +55,7 @@ pipeline
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=qa"
+                    bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=qa"
                     
                 }
             }
@@ -73,7 +73,7 @@ pipeline
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=stage"
+                    bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=stage"
                     
                 }
             }
@@ -92,24 +92,7 @@ pipeline
             }
         }
         
-        
-        stage("Deploy to PROD"){
-            steps{
-                echo("deploy to PROD")
-            }
-        }
-        
-        stage('Sanity API Automation Test - Prod') {
-            steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=prod"
-                    
-                }
-            }
-        }
-        
-        stage('Publish Allure Reports') {
+        stage('Publish Allure Reports - Post Stage') {
            steps {
                 script {
                     allure([
@@ -124,7 +107,50 @@ pipeline
         }
         
         
-        stage('Publish ChainTest Report'){
+        stage('Publish ChainTest Report - Post Stage'){
+            steps{
+                     publishHTML([allowMissing: false,
+                                  alwaysLinkToLastBuild: false, 
+                                  keepAll: true, 
+                                  reportDir: 'target/chaintest', 
+                                  reportFiles: 'Index.html', 
+                                  reportName: 'HTML API Regression ChainTest Report', 
+                                  reportTitles: ''])
+            }
+        }
+        
+        stage("Deploy to PROD"){
+            steps{
+                echo("deploy to PROD")
+            }
+        }
+        
+        stage('Sanity API Automation Test - Prod') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/testnilesh7/RestAPIFramework.git'
+                    bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod"
+                    
+                }
+            }
+        }
+        
+        stage('Publish Allure Reports - Post Prod') {
+           steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: '/allure-results']]
+                    ])
+                }
+            }
+        }
+        
+        
+        stage('Publish ChainTest Report - Post Prod'){
             steps{
                      publishHTML([allowMissing: false,
                                   alwaysLinkToLastBuild: false, 

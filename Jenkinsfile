@@ -26,6 +26,23 @@ pipeline
         }
         
         
+        stage("Deploy to Dev"){
+            steps{
+                echo("deploy to DEV done")
+            }
+        }
+                
+                
+        stage('Regression API Automation Tests - Dev') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/testnilesh7/RestAPIFramework.git'
+                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=dev"
+                    
+                }
+            }
+        }
+        
         
         stage("Deploy to QA"){
             steps{
@@ -38,8 +55,7 @@ pipeline
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=qa
-                    "
+                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=qa"
                     
                 }
             }

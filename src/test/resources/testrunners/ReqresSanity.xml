@@ -1,7 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="API Regression Test Suit" verbose="4">
-
+<listeners>
+<listener class-name="com.aventstack.chaintest.plugins.ChainTestListener" />
+</listeners>
 	<test name="Reqres API Test - Get All Users">
 		<classes>
 			<class name="com.qa.api.reqres.tests.ReqResTest" />

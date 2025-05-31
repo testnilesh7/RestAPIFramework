@@ -34,11 +34,12 @@ pipeline
         }
                 
                 
-        stage('Regression API Automation Tests') {
+        stage('Regression API Automation Tests - QA') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml"
+                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=qa
+                    "
                     
                 }
             }
@@ -78,11 +79,11 @@ pipeline
             }
         }
         
-        stage('Sanity API Automation Test') {
+        stage('Sanity API Automation Test - Stage') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/testnilesh7/RestAPIFramework.git'
-                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml"
+                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=stage"
                     
                 }
             }
@@ -108,6 +109,15 @@ pipeline
             }
         }
         
+        stage('Sanity API Automation Test - Prod') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/testnilesh7/RestAPIFramework.git'
+                    bat "mvn clean test -DsuiteXmlFile=src/test/resources/testrunners/GorestAPI.xml -Denv=prod"
+                    
+                }
+            }
+        }
         
         
     }

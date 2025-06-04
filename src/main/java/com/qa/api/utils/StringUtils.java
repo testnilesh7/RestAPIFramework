@@ -1,6 +1,7 @@
 package com.qa.api.utils;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class StringUtils {
 
@@ -22,4 +23,9 @@ public class StringUtils {
 
         return firstDigit + String.valueOf(remainingDigits);
 	}
+	
+	public static int generateFourDigitRandomNumber() {
+        // Generates a number between 1000 and 9999 (inclusive)
+        return ThreadLocalRandom.current().nextInt(1000, 10000);
+    }
 }

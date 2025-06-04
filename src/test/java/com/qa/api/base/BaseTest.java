@@ -24,6 +24,8 @@ public class BaseTest {
 		protected static String BASE_URL_PRODUCTS;
 		protected static String BASE_URL_OAUTH2_AMADEUS;
 		protected static String BASE_URL_EARGAST_AMADEUS;
+		protected static String BASE_URL_LIBRARY;
+		
 
 	
 	
@@ -42,6 +44,9 @@ public class BaseTest {
 	protected final static String AMADEUS_OAUTH2_TOKEN_ENDPOINT ="/v1/security/oauth2/token";
 	protected final static String AMADEUS_FLIGHT_DEST_ENDPOINT ="v1/shopping/flight-destinations";
 	protected final static String ERGAST_ENDPOINT ="/api/f1/2017/circuits.xml";
+	protected final static String ADD_BOOKS_ENDPOINT="Library/Addbook.php";
+	protected final static String GET_BOOK_ENDPOINT="/Library/GetBook.php";
+
 
 	@BeforeSuite
 	public void initSetup() {
@@ -56,6 +61,7 @@ public class BaseTest {
 		BASE_URL_PRODUCTS = ConfigManager.get("baseurl.products").trim();
 		BASE_URL_OAUTH2_AMADEUS = ConfigManager.get("baseurl.amadeus").trim();
 		BASE_URL_EARGAST_AMADEUS = ConfigManager.get("baseurl.eargast").trim();
+		BASE_URL_LIBRARY = ConfigManager.get("baseurl.library").trim();
 		
 		
 		

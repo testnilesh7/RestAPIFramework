@@ -24,20 +24,22 @@ pipeline {
             }
         }
 
+       
+        
         stage('Push Docker Image to Docker Hub') {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: "${DOCKER_CREDENTIALS_ID}",
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    bat '''
-                        echo "%DOCKER_PASS%" | docker login -u "%DOCKER_USER%" --password-stdin
-                        docker push ${DOCKER_IMAGE}
-                       '''
-                }
-            }
-        }
+    	steps {
+        withCredentials([usernamePassword(
+            credentialsId: "${DOCKER_CREDENTIALS_ID}",
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            bat """
+            echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+            docker push %DOCKER_IMAGE%
+            """
+      	  }
+   		 }
+		}
 
         stage('Deploy to Dev') {
             steps {

@@ -53,7 +53,7 @@ pipeline {
            script {
             def status = bat(
                 script: """
-                    docker run --rm -v \%WORKSPACE%:/app -w /app ${DOCKER_IMAGE} \
+                    docker run --rm -v %WORKSPACE%:/app -w /app ${DOCKER_IMAGE} \
                     mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
                 """,
                 returnStatus: true
@@ -77,7 +77,7 @@ pipeline {
                 script {
                     def status = bat(
                         script: """
-                  				  docker run --rm -v \%WORKSPACE%:/app -w /app ${DOCKER_IMAGE} \
+                  				  docker run --rm -v %WORKSPACE%:/app -w /app ${DOCKER_IMAGE} \
                   				  mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
                					 """,
                         returnStatus: true
@@ -126,7 +126,7 @@ pipeline {
                 script {
                     def status = bat(
                         script: """
-                    			docker run --rm -v \%WORKSPACE%:/app -w /app ${DOCKER_IMAGE} \
+                    			docker run --rm -v %WORKSPACE%:/app -w /app ${DOCKER_IMAGE} \
                     			mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
                 				""",
                         returnStatus: true
@@ -163,7 +163,7 @@ pipeline {
                 script {
                     def status = bat(
                         script: """
-                    			docker run --rm -v \%WORKSPACE%:/app -w /app ${DOCKER_IMAGE} \
+                    			docker run --rm -v %WORKSPACE%:/app -w /app ${DOCKER_IMAGE} \
                     			mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
                				 """,
                         returnStatus: true

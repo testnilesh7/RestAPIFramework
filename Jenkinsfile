@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t ${docker_image} ."
+                sh "docker build -t ${docker_image} ."
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    bat '''
+                    sh '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                         docker push ${docker_image}
                        '''
@@ -49,7 +49,7 @@ pipeline {
         stage('Run Sanity Tests on Dev') {
          steps {
            script {
-            def status = bat(
+            def status = sh(
                 script: """
                     docker run --rm -v \$WORKSPACE:/app -w /app ${docker_image} \
                     mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
@@ -73,7 +73,7 @@ pipeline {
         stage('Run Regression Tests on QA') {
             steps {
                 script {
-                    def status = bat(
+                    def status = sh(
                         script: """
                   				  docker run --rm -v \$WORKSPACE:/app -w /app ${docker_image} \
                   				  mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
@@ -122,7 +122,7 @@ pipeline {
         stage('Run Sanity Tests on Stage') {
             steps {
                 script {
-                    def status = bat(
+                    def status = sh(
                         script: """
                     			docker run --rm -v \$WORKSPACE:/app -w /app ${docker_image} \
                     			mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
@@ -159,7 +159,7 @@ pipeline {
         stage('Run Sanity Tests on Prod') {
             steps {
                 script {
-                    def status = bat(
+                    def status = sh(
                         script: """
                     			docker run --rm -v \$WORKSPACE:/app -w /app ${docker_image} \
                     			mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod

@@ -48,11 +48,11 @@ pipeline {
             steps {
                 script {
                     def status = bat(
-                        script: """
-                        docker run --rm -v "%WORKSPACE%:C:\\app" ^
-                        -w C:\\app %DOCKER_IMAGE% ^
-                        mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
-                        """,
+                        script: bat """
+	docker run --rm -v "%WORKSPACE%:/app" ^
+	-w /app %DOCKER_IMAGE% ^
+	mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
+	""",
                         returnStatus: true
                     )
                     if (status != 0) {
@@ -72,11 +72,11 @@ pipeline {
             steps {
                 script {
                     def status = bat(
-                        script: """
-                        docker run --rm -v "%WORKSPACE%:C:\\app" ^
-                        -w C:\\app %DOCKER_IMAGE% ^
-                        mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
-                        """,
+                        script: bat """
+	docker run --rm -v "%WORKSPACE%:/app" ^
+	-w /app %DOCKER_IMAGE% ^
+	mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
+	""",
                         returnStatus: true
                     )
                     if (status != 0) {
@@ -122,11 +122,11 @@ pipeline {
             steps {
                 script {
                     def status = bat(
-                        script: """
-                        docker run --rm -v "%WORKSPACE%:C:\\app" ^
-                        -w C:\\app %DOCKER_IMAGE% ^
-                        mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
-                        """,
+                        script: bat """
+	docker run --rm -v "%WORKSPACE%:/app" ^
+	-w /app %DOCKER_IMAGE% ^
+	mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
+	""",
                         returnStatus: true
                     )
                     if (status != 0) {
@@ -160,11 +160,11 @@ pipeline {
             steps {
                 script {
                     def status = bat(
-                        script: """
-                        docker run --rm -v "%WORKSPACE%:C:\\app" ^
-                        -w C:\\app %DOCKER_IMAGE% ^
-                        mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
-                        """,
+                        script: bat """
+	docker run --rm -v "%WORKSPACE%:/app" ^
+	-w /app %DOCKER_IMAGE% ^
+	mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
+	""",
                         returnStatus: true
                     )
                     if (status != 0) {

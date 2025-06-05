@@ -157,5 +157,4 @@ pipeline {
                         currentBuild.result = 'UNSTABLE'
                     }
                 }
-            }
 }

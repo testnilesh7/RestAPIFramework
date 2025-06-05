@@ -47,11 +47,14 @@ pipeline {
 
         stage('Run Sanity Tests on Dev') {
          steps {
-            bat script: '''
-				docker run --rm -v "%WORKSPACE%:/app" ^
-				-w /app %DOCKER_IMAGE% ^
-				mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
-				'''
+           script {
+            def status = bat(
+                script: """
+                    docker run --rm -v \$WORKSPACE:/app -w /app ${DOCKER_IMAGE} \
+                    mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
+                """,
+                returnStatus: true
+            )
             if (status != 0) {
                 currentBuild.result = 'UNSTABLE'
             }
@@ -68,11 +71,14 @@ pipeline {
 
         stage('Run Regression Tests on QA') {
             steps {
-                bat script: '''
-				docker run --rm -v "%WORKSPACE%:/app" ^
-				-w /app %DOCKER_IMAGE% ^
-				mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
-				'''
+                script {
+                    def status = bat(
+                        script: """
+                  				  docker run --rm -v \$WORKSPACE:/app -w /app ${DOCKER_IMAGE} \
+                  				  mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
+               					 """,
+                        returnStatus: true
+                    )
                     if (status != 0) {
                         currentBuild.result = 'UNSTABLE'
                     }
@@ -114,17 +120,20 @@ pipeline {
 
         stage('Run Sanity Tests on Stage') {
             steps {
-                bat script: '''
-				docker run --rm -v "%WORKSPACE%:/app" ^
-				-w /app %DOCKER_IMAGE% ^
-				mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
-				'''
+                script {
+                    def status = bat(
+                        script: """
+                    			docker run --rm -v \$WORKSPACE:/app -w /app ${DOCKER_IMAGE} \
+                    			mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
+                				""",
+                        returnStatus: true
+                    )
                     if (status != 0) {
                         currentBuild.result = 'UNSTABLE'
                     }
                 }
             }
-        
+        }
 
         stage('Publish Sanity ChainTest Report') {
             steps {
@@ -148,13 +157,19 @@ pipeline {
 
         stage('Run Sanity Tests on Prod') {
             steps {
-                bat script: '''
-				docker run --rm -v "%WORKSPACE%:/app" ^
-				-w /app %DOCKER_IMAGE% ^
-				mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
-				'''
+                script {
+                    def status = bat(
+                        script: """
+                    			docker run --rm -v \$WORKSPACE:/app -w /app ${DOCKER_IMAGE} \
+                    			mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml -Denv=prod
+               				 """,
+                        returnStatus: true
+                    )
                     if (status != 0) {
                         currentBuild.result = 'UNSTABLE'
                     }
                 }
+            }
+        }
+    }
 }

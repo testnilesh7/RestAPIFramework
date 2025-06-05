@@ -124,7 +124,7 @@ pipeline {
                     }
                 }
             }
-        }
+        
 
         stage('Publish Sanity ChainTest Report') {
             steps {
@@ -158,6 +158,6 @@ pipeline {
                     }
                 }
             }
-        }
+        
     }
 }

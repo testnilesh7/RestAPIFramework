@@ -73,7 +73,7 @@ pipeline {
                     def status = powershell(
 						script: '''
 						    echo "DOCKER_IMAGE: $env:DOCKER_IMAGE"
-						    docker run --rm -v "$env:WORKSPACE:/app" -w "/app" $env:DOCKER_IMAGE mvn test "Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml" -Denv=prod
+						    docker run --rm -v "$env:WORKSPACE:/app" -w "/app" $env:DOCKER_IMAGE mvn test "-Dsurefire.suiteXmlFiles=src/test/resources/testrunners/GorestAPI.xml" -Denv=prod
 							''',
 		                returnStatus: true
 		            )

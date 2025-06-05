@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = "nileshbhujang/restapiframeworknb:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "nileshbhujang/restapifwnb:${BUILD_NUMBER}"
         DOCKER_CREDENTIALS_ID = 'dockerhub_credentials'
     }
 

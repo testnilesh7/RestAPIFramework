@@ -1,10 +1,12 @@
 package com.qa.api.base;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.qa.api.client.RestClient;
 import com.qa.api.manager.ConfigManager;
+import com.qa.api.mocking.WireMockSetup;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
@@ -26,6 +28,7 @@ public class BaseTest {
 		protected static String BASE_URL_EARGAST_AMADEUS;
 		protected static String BASE_URL_LIBRARY;
 		
+		protected final static String BASE_URL_MOCK_SERVER ="http://localhost:8089";
 
 	
 	
@@ -63,15 +66,19 @@ public class BaseTest {
 		BASE_URL_EARGAST_AMADEUS = ConfigManager.get("baseurl.eargast").trim();
 		BASE_URL_LIBRARY = ConfigManager.get("baseurl.library").trim();
 		
-		
-		
 	}
+	
 	
 	@BeforeTest
 	public void setup() {
 		
 		restClient=new RestClient();
-		
+		WireMockSetup.startWireMockServer();
+	}
+	
+	@AfterTest
+	public void stopMockServer() {
+		WireMockSetup.stopWireMockServer();
 	}
 
 }

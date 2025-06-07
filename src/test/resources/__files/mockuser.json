@@ -1,0 +1,22 @@
+{
+  "id": 12345,
+  "name": {
+    "first": "Jane",
+    "last": "Doe"
+  },
+  "username": "janedoe89",
+  "email": "jane.doe@example.com",
+  "phone": "+1-202-555-0173",
+  "address": {
+    "street": "123 Maple Street",
+    "city": "Springfield",
+    "state": "IL",
+    "postalCode": "62704",
+    "country": "USA"
+  },
+  "dob": "1989-06-15",
+  "registered": "2021-03-10T14:22:00Z",
+  "profile_picture": "https://randomuser.me/api/portraits/women/1.jpg",
+  "isActive": true,
+  "roles": ["user", "subscriber"]
+}

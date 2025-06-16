@@ -9,7 +9,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 
 
-
 public class APIMocks {
 
 	//*************************Get Mock/Stub for GET CALL******************//
@@ -76,6 +75,5 @@ public class APIMocks {
 						)
 				);
 	}
-	
-	
+
 }
